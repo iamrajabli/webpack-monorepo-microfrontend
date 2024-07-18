@@ -2,6 +2,7 @@ export interface BuildPathsInterface {
     entry: string;
     html: string;
     output: string;
+    src: string;
 }
 
 export type BuildModeType = 'production' | 'development'
