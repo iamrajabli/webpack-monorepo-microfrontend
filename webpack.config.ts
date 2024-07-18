@@ -1,69 +1,26 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import type {Configuration as DevServerConfiguration} from "webpack-dev-server";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-
-type Mode = 'production' | 'development';
+import {buildWebpack} from "./config/build/buildWebpack";
+import {BuildModeType, BuildPathsInterface} from "./config/build/types/types";
+import path from "node:path";
 
 interface EnvVariables {
-    mode: Mode
+    mode: BuildModeType
     port: number
 }
 
 
-const config = (env: EnvVariables): webpack.Configuration => {
+export default (env: EnvVariables) => {
 
-    const isDev = env.mode === 'development'
-    const isProd = env.mode === 'production'
-
-
-    return {
-        mode: env.mode ?? 'development',
+    const paths: BuildPathsInterface = {
+        output: path.resolve(__dirname, 'build'),
         entry: path.resolve(__dirname, 'src', 'index.tsx'),
-        output: {
-            path: path.resolve(__dirname, 'build'),
-            filename: '[name].[contenthash].js',
-            clean: true
-        },
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, 'public', 'index.html')
-            }),
-            isDev && new webpack.ProgressPlugin(),
-            isProd && new MiniCssExtractPlugin({
-                filename: "css/[name].[contenthash:8].css",
-                chunkFilename: "css/[name].[contenthash:8].css",
-            }),
-        ],
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    use: 'ts-loader',
-                    exclude: /node_modules/,
-                },
-                {
-                    test: /\.s[ac]ss$/i,
-                    use: [
-                        // Creates `style` nodes from JS strings
-                        isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-                        // Translates CSS into CommonJS
-                        "css-loader",
-                        // Compiles Sass to CSS
-                        "sass-loader",
-                    ],
-                },
-            ],
-        },
-        devtool: isDev && 'inline-source-map',
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
-        },
-        devServer: isDev ? {
-            port: env.port ?? 4200,
-        } : undefined
+        html: path.resolve(__dirname, 'public', 'index.html')
     }
-}
 
-export default config
+    return buildWebpack(
+        {
+            port: env.port ?? 4300,
+            paths,
+            mode: env.mode ?? 'development'
+        }
+    )
+}
