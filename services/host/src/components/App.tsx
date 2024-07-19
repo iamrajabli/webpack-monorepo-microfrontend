@@ -21,10 +21,10 @@ export const App = () => {
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/shop">Shop</Link>
+                    <Link to="/shop/main">Shop</Link>
                 </li>
                 <li>
-                    <Link to="/about">About</Link>
+                    <Link to="/admin/about">About</Link>
                 </li>
             </ul>
             <h1>Hello World</h1>

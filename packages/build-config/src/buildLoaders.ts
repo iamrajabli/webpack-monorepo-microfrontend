@@ -75,8 +75,8 @@ export function buildLoaders(options: BuildOptionsInterface): ModuleOptions['rul
     }
 
     return [
-        // tsLoader,
-        babelLoader,
+        tsLoader,
+        // babelLoader,
         cssLoader,
         assetLoader,
         svgLoader

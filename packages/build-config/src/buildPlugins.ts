@@ -19,6 +19,7 @@ export function buildPlugins(options: BuildOptionsInterface): Configuration['plu
         new HtmlWebpackPlugin({
             template: paths.html,
             favicon: path.resolve(paths.public, 'favicon.ico'),
+            publicPath: '/',
         }),
         new webpack.ProgressPlugin(),
         new webpack.DefinePlugin({
@@ -43,7 +44,7 @@ export function buildPlugins(options: BuildOptionsInterface): Configuration['plu
 
     if (isDev) {
         [
-            new ForkTsCheckerWebpackPlugin(),
+            // new ForkTsCheckerWebpackPlugin(),
             new ReactRefreshWebpackPlugin()
         ].forEach(plugin => plugins.push(plugin))
     }
