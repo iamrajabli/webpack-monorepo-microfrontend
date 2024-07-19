@@ -3,6 +3,9 @@ import {Link, Outlet} from "react-router-dom";
 
 import margaret from '@/assets/margaret_hamilton.png';
 
+import {shopRoutes} from "@packages/shared/src/routes/shop"
+import {adminRoutes} from "@packages/shared/src/routes/admin"
+
 export const App = () => {
 
 
@@ -21,10 +24,10 @@ export const App = () => {
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/shop/main">Shop</Link>
+                    <Link to={shopRoutes.main}>Shop</Link>
                 </li>
                 <li>
-                    <Link to="/admin/about">About</Link>
+                    <Link to={adminRoutes.about}>About</Link>
                 </li>
             </ul>
             <h1>Hello World</h1>
