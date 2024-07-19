@@ -5,9 +5,18 @@ import margaret from '@/assets/margaret_hamilton.png';
 
 export const App = () => {
 
+
+    if(__PLATFORM__ === 'desktop') {
+        console.log('Desktop platform');
+    }
+
+    if(__PLATFORM__ === 'mobile') {
+        console.log('Mobile platform');
+    }
+
     return (
-        <div>
-            <ul>
+        <div data-testid={'App'}>
+            <ul data-testid={'Navbar'}>
                 <li>
                     <Link to="/">Home</Link>
                 </li>
